@@ -3,6 +3,7 @@ package com.example.useful.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.useful.CustomExceptionHadling.ControllerException;
+import com.example.useful.CustomExceptionHadling.ServiceException;
 import com.example.useful.entity.Users;
 import com.example.useful.service.UserService;
 
@@ -39,9 +42,16 @@ public class UserController {
 	}
 	
 	@PostMapping("/addUser")
-	public ResponseEntity<Users> addUser(@RequestBody Users user){
-		Users userSaved = userService.saveUser(user);
-		return ResponseEntity.ok(userSaved);
+	public ResponseEntity<?> addUser(@RequestBody Users user){
+		try{
+			Users userSaved = userService.saveUser(user);
+			return new ResponseEntity<Users>(userSaved,HttpStatus.CREATED);
+		}
+		catch (ServiceException e) {
+		ControllerException ex = new ControllerException(e.getErrorCode(),e.getErrorMessage());
+//		throw new ControllerException(ex.getErrorCode(),ex.getErrorMessage());
+		return new ResponseEntity<ControllerException>(ex, HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 	@PutMapping("/updateUser/{id}")

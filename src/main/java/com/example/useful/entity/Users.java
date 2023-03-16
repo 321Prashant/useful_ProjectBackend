@@ -7,9 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,7 +30,10 @@ public class Users {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Integer userId;
 	
+	@NotNull(message = "Name can't be null")
 	private String name;
+	
+	@Size(min = 5, max = 45, message = "Size limit is 5 letters to 45 letters")
 	private String description;
 	private String userRole;
 	

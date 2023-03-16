@@ -3,7 +3,7 @@ package com.example.useful.CustomExceptionHadling;
 
 public class ServiceException extends RuntimeException{
 
-	private Integer errorCode;
+	private String errorCode;
 	private String errorMessage;
 	
 	
@@ -12,15 +12,15 @@ public class ServiceException extends RuntimeException{
 	public ServiceException() {
 		super();
 	}
-	public ServiceException(Integer errorCode, String errorMessage) {
+	public ServiceException(String errorCode, String errorMessage) {
 		super();
 		this.errorCode = errorCode;
 		this.errorMessage = errorMessage;
 	}
-	public Integer getErrorCode() {
+	public String getErrorCode() {
 		return errorCode;
 	}
-	public void setErrorCode(Integer errorCode) {
+	public void setErrorCode(String errorCode) {
 		this.errorCode = errorCode;
 	}
 	public String getErrorMessage() {

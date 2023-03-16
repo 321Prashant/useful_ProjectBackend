@@ -25,8 +25,18 @@ public class UserService {
 	}
 
 	public Users saveUser(Users user) {
-		return usersRepository.save(user);
-	}
+		if(user.getName().isEmpty() || user.getName() == null) {
+			throw new ServiceException("300","Your name is empty please check it again");
+		}
+		try {
+			return usersRepository.save(user);
+				
+		}
+		catch (Exception e) {
+			throw new ServiceException("301","Exception is"+e.getMessage());
+			// TODO: handle exception
+		}
+		}
 
 	public Users updateUser(Users user, Integer id) {
 		Users userTobeUpdated = usersRepository.findById(id).get();
@@ -53,12 +63,12 @@ public class UserService {
 	public Users getCompanyOfUser(Integer id) {
 		Users userOfCompany = companyRepository.findUserFromCompany(id);
 		if(userOfCompany == null)
-			throw new ServiceException(100,"User of this company didn't exists");
+			throw new ServiceException("100","User of this company didn't exists");
 		try {
 			return  userOfCompany;
 		}
 		catch(Exception e) {
-			throw new ServiceException(900,"Exception occurs on searching user from a company"+e.getMessage());
+			throw new ServiceException("900","Exception occurs on searching user from a company"+e.getMessage());
 		}
 	}
 
