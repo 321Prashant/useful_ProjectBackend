@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.useful.entity.Users;
 import com.example.useful.service.UserService;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/Users")
 public class UserController {
@@ -23,13 +25,17 @@ public class UserController {
 	@Autowired
 	public UserService userService;
 	
+	
 	@GetMapping("/getAllUsers")
 	public ResponseEntity<List<Users>> getAllUser(){
 		List<Users> users = userService.getAllUsers();
 		return ResponseEntity.ok(users);
-		
-
+	}
 	
+	@GetMapping("/getAllUsers/{id}")
+	public ResponseEntity<Users> getUserById(@PathVariable Integer id){
+		Users users = userService.getUserById(id);
+		return ResponseEntity.ok(users);
 	}
 	
 	@PostMapping("/addUser")
@@ -44,8 +50,17 @@ public class UserController {
 		 return updateUsers;
 	}
 	
+	@CrossOrigin
 	@DeleteMapping("/deleteUser/{id}")
 	public String deleteUser(@PathVariable Integer id) {
 		return userService.deleteUser(id);
 	}	 
+	
+	@GetMapping("/getCompanyOfUser/{id}")
+	public Users getUserCompany(@PathVariable Integer id) {
+		return userService.getCompanyOfUser(id);
+		
+		
+	}
+
 }

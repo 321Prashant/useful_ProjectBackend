@@ -5,7 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.useful.CustomExceptionHadling.ServiceException;
+import com.example.useful.entity.Company;
 import com.example.useful.entity.Users;
+import com.example.useful.repository.CompanyRepository;
 import com.example.useful.repository.UsersRepository;
 
 @Service
@@ -13,6 +16,8 @@ public class UserService {
 
 	@Autowired
 	public UsersRepository usersRepository;
+	@Autowired
+	public CompanyRepository companyRepository;
 	
 	public List<Users> getAllUsers() {
 		
@@ -36,6 +41,25 @@ public class UserService {
 	public String deleteUser(Integer id) {
 	usersRepository.deleteById(id);
 		return "User deleted";
+	}
+
+	public Users getUserById(Integer id) {
+		Users user = usersRepository.findById(id).get();
+		return user;
+	}
+	
+	
+	//need to watch
+	public Users getCompanyOfUser(Integer id) {
+		Users userOfCompany = companyRepository.findUserFromCompany(id);
+		if(userOfCompany == null)
+			throw new ServiceException(100,"User of this company didn't exists");
+		try {
+			return  userOfCompany;
+		}
+		catch(Exception e) {
+			throw new ServiceException(900,"Exception occurs on searching user from a company"+e.getMessage());
+		}
 	}
 
 }
