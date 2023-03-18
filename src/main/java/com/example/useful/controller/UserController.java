@@ -49,10 +49,11 @@ public class UserController {
 		}
 		catch (ServiceException e) {
 		ControllerException ex = new ControllerException(e.getErrorCode(),e.getErrorMessage());
-//		throw new ControllerException(ex.getErrorCode(),ex.getErrorMessage());
 		return new ResponseEntity<ControllerException>(ex, HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	
 	
 	@PutMapping("/updateUser/{id}")
 	public Users updateUser(@RequestBody Users user, @PathVariable Integer id) {
@@ -66,11 +67,29 @@ public class UserController {
 		return userService.deleteUser(id);
 	}	 
 	
+	//	*** using native query or getting comapny of users ****
 	@GetMapping("/getCompanyOfUser/{id}")
 	public Users getUserCompany(@PathVariable Integer id) {
 		return userService.getCompanyOfUser(id);
 		
 		
 	}
+	
+	//***** Address With Users and company ***** one to many mapping 
+	
+	@PostMapping("/addUserAndAddress")
+	public ResponseEntity<?> addUserAndAddress(@RequestBody Users user){
+		try{
+			Users userSaved = userService.saveUserAndAddress(user);
+			return new ResponseEntity<Users>(userSaved,HttpStatus.CREATED);
+		}
+		catch (ServiceException e) {
+		ControllerException ex = new ControllerException(e.getErrorCode(),e.getErrorMessage());
+		return new ResponseEntity<ControllerException>(ex, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	
+	
 
 }

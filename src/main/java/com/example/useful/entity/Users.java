@@ -1,10 +1,13 @@
 package com.example.useful.entity;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -38,9 +41,11 @@ public class Users {
 	private String userRole;
 	
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-	@JsonBackReference
 	private Company company;
 		
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<Address> address;
+	
 		public Users() {
 		super();
 	}
@@ -54,6 +59,38 @@ public class Users {
 		}
 
 		
+
+		public Users(@NotNull(message = "Name can't be null") String name,
+				@Size(min = 5, max = 45, message = "Size limit is 5 letters to 45 letters") String description,
+				String userRole, Company company, List<Address> address) {
+			super();
+			this.name = name;
+			this.description = description;
+			this.userRole = userRole;
+			this.company = company;
+			this.address = address;
+		}
+
+
+		public Company getCompany() {
+			return company;
+		}
+
+
+		public void setCompany(Company company) {
+			this.company = company;
+		}
+
+
+		public List<Address> getAddress() {
+			return address;
+		}
+
+
+		public void setAddress(List<Address> address) {
+			this.address = address;
+		}
+
 
 		public Integer getUserId() {
 			return userId;
