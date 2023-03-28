@@ -1,12 +1,16 @@
 package com.example.useful.entity;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -40,15 +44,45 @@ public class Users {
 	private String description;
 	private String userRole;
 	
+	
+	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+	private List<EmailOTP> emailOtp;
+	
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private Company company;
 		
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Address> address;
 	
+	@ManyToMany
+	@JoinTable(
+			name="User_Role_table",
+			joinColumns = @JoinColumn(name="user_id"),
+			inverseJoinColumns = @JoinColumn(name = "roles_id")
+			)
+	@JsonBackReference
+	private Set<Roless> roles;
+	
+	
 		public Users() {
 		super();
 	}
+
+		
+
+		public Users(@NotNull(message = "Name can't be null") String name,
+				@Size(min = 5, max = 45, message = "Size limit is 5 letters to 45 letters") String description,
+				String userRole, List<EmailOTP> emailOtp, Company company, List<Address> address, Set<Roless> roles) {
+			super();
+			this.name = name;
+			this.description = description;
+			this.userRole = userRole;
+			this.emailOtp = emailOtp;
+			this.company = company;
+			this.address = address;
+			this.roles = roles;
+		}
+
 
 
 		public Users(String name, String description, String userRole) {
@@ -69,6 +103,43 @@ public class Users {
 			this.userRole = userRole;
 			this.company = company;
 			this.address = address;
+		}
+
+		
+
+		public Users(@NotNull(message = "Name can't be null") String name,
+				@Size(min = 5, max = 45, message = "Size limit is 5 letters to 45 letters") String description,
+				String userRole, Company company, List<Address> address, Set<Roless> roles) {
+			super();
+			this.name = name;
+			this.description = description;
+			this.userRole = userRole;
+			this.company = company;
+			this.address = address;
+			this.roles = roles;
+		}
+
+		
+
+		public List<EmailOTP> getEmailOtp() {
+			return emailOtp;
+		}
+
+
+
+		public void setEmailOtp(List<EmailOTP> emailOtp) {
+			this.emailOtp = emailOtp;
+		}
+
+
+
+		public Set<Roless> getRoles() {
+			return roles;
+		}
+
+
+		public void setRoles(Set<Roless> roles) {
+			this.roles = roles;
 		}
 
 

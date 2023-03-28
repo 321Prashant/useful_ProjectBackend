@@ -1,6 +1,7 @@
 package com.example.useful.service;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.useful.CustomExceptionHadling.ServiceException;
 import com.example.useful.entity.Address;
 import com.example.useful.entity.Company;
+import com.example.useful.entity.Roless;
 import com.example.useful.entity.Users;
 import com.example.useful.repository.AddressRepository;
 import com.example.useful.repository.CompanyRepository;
@@ -105,7 +107,26 @@ public class UserService {
 			// TODO: handle exception
 		}
 	}
+
 	
+	//	@Manytomany mapping from user to roles, save roles with user
+	public Set<Users> saveUserAndRoles(Set<Users> user) {
+		try {
+			for(Users userSet: user) {
+				Set<Roless> role = userSet.getRoles();
+				for(Roless roles:role) {
+					roles.setUser(user);
+				}
+			}
+			
+			return (Set<Users>) usersRepository.saveAll(user);
+			
+		}
+		catch (Exception e) {
+			throw new ServiceException("900","Exception occurs on searching user from a company"+e.getMessage());
+		}
+		
+	}
 	
 	
 	

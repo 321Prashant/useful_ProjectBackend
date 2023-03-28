@@ -32,6 +32,8 @@ public class AddressService {
 		}
 	}
 	
+	//Address update hone pr user null add hora hai,,
+	
 	     //ONETOMANY mapping user with address 
 		//	update address seperately taking addressID ,,we are updating addresses in users 
 		public Address updateAddress(Address address, Integer id) {

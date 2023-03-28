@@ -1,6 +1,7 @@
 package com.example.useful.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -90,6 +91,17 @@ public class UserController {
 	}
 	
 	
-	
+	//	***** SAVING USERS with ROLES many to many mapping ******
+	@PostMapping("/addUserWithRoles")
+	public ResponseEntity<?> addUserAndRoles(@RequestBody Set<Users> user){
+		try{
+			Set<Users> userSaved = userService.saveUserAndRoles(user);
+			return new ResponseEntity<Set<Users>>(userSaved,HttpStatus.CREATED);
+		}
+		catch (ServiceException e) {
+		ControllerException ex = new ControllerException(e.getErrorCode(),e.getErrorMessage());
+		return new ResponseEntity<ControllerException>(ex, HttpStatus.BAD_REQUEST);
+		}
+	}
 
 }
