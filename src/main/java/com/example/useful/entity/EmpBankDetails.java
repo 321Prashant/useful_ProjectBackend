@@ -28,15 +28,15 @@ public class EmpBankDetails {
 	private Date effDate;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	  @JoinColumn(name = "empBankDetails", referencedColumnName = "bankBranchId")
+	  @JoinColumn(name = "bankBranch_id")
 	private BankBranchDetails bankBranchDetails;
-//	
-//	@OneToMany(targetEntity=BankBranchTransaction.class, mappedBy="empBankDetails", cascade = CascadeType.ALL)
-//	private List<BankBranchTransaction> branchBankTransaction;
+	
+	@OneToMany(targetEntity=BankBranchTransaction.class, mappedBy="empBankDetails", cascade = CascadeType.ALL)
+	private List<BankBranchTransaction> branchBankTransaction;
 
-//	@ManyToOne
-//	@JoinColumn(name="userId")
-//	private Users userId;
+	@ManyToOne
+	@JoinColumn(name="userId")
+	private Users userId;
 	
 	
 	public EmpBankDetails() {
@@ -52,8 +52,8 @@ public class EmpBankDetails {
 		this.salaryAccount = salaryAccount;
 		this.effDate = effDate;
 		this.bankBranchDetails = bankBranchDetails;
-//		this.branchBankTransaction = branchBankTransaction;
-//		this.userId = userId;
+		this.branchBankTransaction = branchBankTransaction;
+		this.userId = userId;
 	}
 
 
@@ -92,13 +92,13 @@ public class EmpBankDetails {
 		this.bankBranchDetails = bankBranchDetails;
 	}
 
-//	public List<BankBranchTransaction> getBranchBankTransaction() {
-//		return branchBankTransaction;
-//	}
-//
-//	public void setBranchBankTransaction(List<BankBranchTransaction> branchBankTransaction) {
-//		this.branchBankTransaction = branchBankTransaction;
-//	}
+	public List<BankBranchTransaction> getBranchBankTransaction() {
+		return branchBankTransaction;
+	}
+
+	public void setBranchBankTransaction(List<BankBranchTransaction> branchBankTransaction) {
+		this.branchBankTransaction = branchBankTransaction;
+	}
 	
 
 	public Integer getEmployeeBankDetailsId() {
@@ -113,15 +113,15 @@ public class EmpBankDetails {
 
 
 
-//	public Users getUserId() {
-//		return userId;
-//	}
-//
-//
-//
-//	public void setUserId(Users userId) {
-//		this.userId = userId;
-//	}
+	public Users getUserId() {
+		return userId;
+	}
+
+
+
+	public void setUserId(Users userId) {
+		this.userId = userId;
+	}
 
 
 

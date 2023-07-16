@@ -22,10 +22,10 @@ public class BankBranchTransaction {
 	private String transactionType;
 	
 	private float curr_bal;
-//	
-//	@ManyToOne
-//	@JoinColumn(name="empBankDetailsId")
-//	private EmpBankDetails empBankDetails;
+	
+	@ManyToOne
+	@JoinColumn(name="empBankDetailsId")
+	private EmpBankDetails empBankDetails;
 	
 	
 
@@ -40,7 +40,7 @@ public class BankBranchTransaction {
 		this.transactioAmount = transactioAmount;
 		this.transactionType = transactionType;
 		this.curr_bal = curr_bal;
-//		this.empBankDetails = empBankDetails;
+		this.empBankDetails = empBankDetails;
 	}
 
 	@Override
@@ -90,13 +90,13 @@ public class BankBranchTransaction {
 		this.curr_bal = curr_bal;
 	}
 
-//	public EmpBankDetails getEmpBankDetails() {
-//		return empBankDetails;
-//	}
-//
-//	public void setEmpBankDetails(EmpBankDetails empBankDetails) {
-//		this.empBankDetails = empBankDetails;
-//	}
+	public EmpBankDetails getEmpBankDetails() {
+		return empBankDetails;
+	}
+
+	public void setEmpBankDetails(EmpBankDetails empBankDetails) {
+		this.empBankDetails = empBankDetails;
+	}
 	
 	
 	
