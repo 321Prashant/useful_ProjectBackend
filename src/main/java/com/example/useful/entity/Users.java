@@ -54,6 +54,9 @@ public class Users {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Address> address;
 	
+//	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
+//	private List<EmpBankDetails> empBankDetails;
+	
 	@ManyToMany
 	@JoinTable(
 			name="User_Role_table",
@@ -68,7 +71,6 @@ public class Users {
 		super();
 	}
 
-		
 
 		public Users(@NotNull(message = "Name can't be null") String name,
 				@Size(min = 5, max = 45, message = "Size limit is 5 letters to 45 letters") String description,
@@ -83,6 +85,22 @@ public class Users {
 			this.roles = roles;
 		}
 
+		
+
+		public Users(@NotNull(message = "Name can't be null") String name,
+				@Size(min = 5, max = 45, message = "Size limit is 5 letters to 45 letters") String description,
+				String userRole, List<EmailOTP> emailOtp, Company company, List<Address> address,
+				List<EmpBankDetails> empBankDetails, Set<Roless> roles) {
+			super();
+			this.name = name;
+			this.description = description;
+			this.userRole = userRole;
+			this.emailOtp = emailOtp;
+			this.company = company;
+			this.address = address;
+//			this.empBankDetails = empBankDetails;
+			this.roles = roles;
+		}
 
 
 		public Users(String name, String description, String userRole) {
@@ -201,6 +219,20 @@ public class Users {
 		public void setUserRole(String userRole) {
 			this.userRole = userRole;
 		}
+
+
+		
+
+//		public List<EmpBankDetails> getEmpBankDetails() {
+//			return empBankDetails;
+//		}
+//
+//
+//
+//		public void setEmpBankDetails(List<EmpBankDetails> empBankDetails) {
+//			this.empBankDetails = empBankDetails;
+//		}
+
 
 
 		@Override
