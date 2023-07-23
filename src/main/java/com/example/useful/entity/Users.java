@@ -63,7 +63,7 @@ public class Users {
 			joinColumns = @JoinColumn(name="user_id"),
 			inverseJoinColumns = @JoinColumn(name = "roles_id")
 			)
-	@JsonBackReference
+	
 	private Set<Roless> roles;
 	
 	

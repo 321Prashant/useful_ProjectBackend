@@ -35,13 +35,13 @@ public class EmpBankDetailsController {
 	}
 	
 	@GetMapping("/getEmpBankDetailsById/{id}")
-	public ResponseEntity<?> getEmpBankDetailsById(@PathVariable Integer id){
+	public ResponseEntity<?> getEmpBankDetailsById(@PathVariable Long id){
 		 EmpBankDetails empBankDetailsSaved =  empBankDetailsService.getById(id);
 		 return new ResponseEntity<EmpBankDetails>(empBankDetailsSaved,HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/updateEmpBankDetails/{id}")
-	public ResponseEntity<?> updateEmpBankDetails(@RequestBody EmpBankDetails empBankDetails, @PathVariable Integer id){
+	public ResponseEntity<?> updateEmpBankDetails(@RequestBody EmpBankDetails empBankDetails, @PathVariable Long id){
 		EmpBankDetails empBankDetailsUpdated =  empBankDetailsService.updateEmpBankDetails(empBankDetails ,id);
 		 return new ResponseEntity<EmpBankDetails>(empBankDetailsUpdated,HttpStatus.CREATED);
 			 

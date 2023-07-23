@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Roless {
 
@@ -19,6 +21,7 @@ public class Roless {
 	private String roleType;
 	
 	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "roles")
+	@JsonBackReference
 	private Set<Users> user;
 
 	public Roless(String roleType, Set<Users> user) {

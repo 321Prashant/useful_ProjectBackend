@@ -9,17 +9,20 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="bankBranchDetails")
 public class BankBranchDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String bankBranchId;
+	private Long bankBranchId;
 	
 	private String country;
 	private String city;
 	
+	@JsonBackReference
 	@OneToOne(mappedBy = "bankBranchDetails")
 	  private EmpBankDetails empBankDetails;
 	
@@ -34,10 +37,10 @@ public class BankBranchDetails {
 		this.country = country;
 		this.city = city;
 	}
-	public String getBankBranchId() {
+	public Long getBankBranchId() {
 		return bankBranchId;
 	}
-	public void setBankBranchId(String bankBranchId) {
+	public void setBankBranchId(Long bankBranchId) {
 		this.bankBranchId = bankBranchId;
 	}
 	public String getCountry() {
