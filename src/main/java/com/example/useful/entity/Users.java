@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,13 +18,13 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 @Entity
 @Data
@@ -54,6 +55,20 @@ public class Users {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Address> address;
 	
+	
+	//Added for Oauth to provide the role types
+	 @Enumerated(EnumType.STRING)
+	    private Provider provider;
+	 
+	    public Provider getProvider() {
+	        return provider;
+	    }
+	 
+	    public void setProvider(Provider provider) {
+	        this.provider = provider;
+	    }
+	    
+	    
 //	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
 //	private List<EmpBankDetails> empBankDetails;
 	

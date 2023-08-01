@@ -72,7 +72,7 @@ public class EmpBankDetails {
 //		}
 	
 //	needs to be checked with bankbranchtransaction object and bankDetails object everytime a new object will be created if you do not pass id, DTO required
-// on passing id it didn't check either
+//  on passing id it didn't check either
 	
 	public EmpBankDetails() {
 		super();
