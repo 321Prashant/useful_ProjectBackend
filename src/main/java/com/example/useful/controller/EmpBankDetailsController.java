@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.useful.dto.EmpBankDetailsDto;
 import com.example.useful.entity.EmpBankDetails;
 import com.example.useful.service.EmpBankDetailsService;
 
@@ -23,8 +24,8 @@ public class EmpBankDetailsController {
 	@Autowired
 	private EmpBankDetailsService empBankDetailsService;
 	@PostMapping("/addEmpBankDetails")
-	public ResponseEntity<?> addEmpBankDetails(@RequestBody EmpBankDetails empBankDetails){
-		 EmpBankDetails empBankDetailsSaved =  empBankDetailsService.save(empBankDetails);
+	public ResponseEntity<?> addEmpBankDetails(@RequestBody EmpBankDetailsDto empBankDetailsDto){
+		 EmpBankDetails empBankDetailsSaved =  empBankDetailsService.save(empBankDetailsDto);
 		 return new ResponseEntity<EmpBankDetails>(empBankDetailsSaved,HttpStatus.CREATED);
 	}
 	

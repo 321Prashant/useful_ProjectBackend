@@ -40,6 +40,13 @@ public class BankBranchDetails {
 	public Long getBankBranchId() {
 		return bankBranchId;
 	}
+	
+	public EmpBankDetails getEmpBankDetails() {
+		return empBankDetails;
+	}
+	public void setEmpBankDetails(EmpBankDetails empBankDetails) {
+		this.empBankDetails = empBankDetails;
+	}
 	public void setBankBranchId(Long bankBranchId) {
 		this.bankBranchId = bankBranchId;
 	}

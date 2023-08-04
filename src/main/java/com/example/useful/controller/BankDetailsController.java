@@ -35,7 +35,7 @@ public class BankDetailsController {
 	}
 	
 	@GetMapping("/getBankDetailsById/{id}")
-	public ResponseEntity<?> getBankDetails(@PathVariable String id){
+	public ResponseEntity<?> getBankDetails(@PathVariable Long id){
 		BankBranchDetails getAllBankDetails = bankDetailsService.findById(id);
 		return new ResponseEntity<BankBranchDetails>(getAllBankDetails,HttpStatus.OK);
 	}

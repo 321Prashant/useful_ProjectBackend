@@ -5,9 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.useful.dto.EmpBankDetailsDto;
+import com.example.useful.entity.BankBranchDetails;
 import com.example.useful.entity.BankBranchTransaction;
 import com.example.useful.entity.EmpBankDetails;
 import com.example.useful.repository.BankBranchTransactionRepository;
+import com.example.useful.repository.BankDetailsRepository;
 import com.example.useful.repository.EmpBankDetailsRepository;
 
 @Service
@@ -17,6 +20,8 @@ public class EmpBankDetailsService {
 	private EmpBankDetailsRepository empBankDetailsRepository;
 	@Autowired
 	private BankBranchTransactionRepository bankBranchTransactionRepository;
+	@Autowired
+	private BankDetailsRepository bankBranchDetailsRepository;
 	
 	public List<EmpBankDetails> get() {
 		
@@ -35,12 +40,21 @@ public class EmpBankDetailsService {
 		return empBankDetailsRepository.save(empBankDetailsToUpdated);
 	}
 
-	public EmpBankDetails save(EmpBankDetails empBankDetails) {
+	public EmpBankDetails save(EmpBankDetailsDto empBankDetailsDto) {
+		EmpBankDetails empBankDetails = new EmpBankDetails();
+		BankBranchDetails bankBranchDetails = bankBranchDetailsRepository.findById(empBankDetailsDto.getBankBranchDetailsId()).get();
+//		bankBranchDetails.setEmpBankDetails(empBankDetails);
+		empBankDetails.setAccountNo(empBankDetailsDto.getAccountNo());
+		empBankDetails.setSalaryAccount(empBankDetailsDto.isSalaryAccount());
+		empBankDetails.setEffDate(empBankDetailsDto.getEffDate());
 		
-		List<BankBranchTransaction> bankBranchTransactionList  = empBankDetails.getBranchBankTransaction();
-		for(BankBranchTransaction bankTransaction:bankBranchTransactionList){
-			bankTransaction.setEmpBankDetails(empBankDetails);
-		}
+		empBankDetails.setBankBranchDetails(bankBranchDetails);
+	
+//		empBankDetails.setBranchBankTransaction(null);
+//		List<BankBranchTransaction> bankBranchTransactionList  = empBankDetails.getBranchBankTransaction();
+//		for(BankBranchTransaction bankTransaction:bankBranchTransactionList){
+//			bankTransaction.setEmpBankDetails(empBankDetails);
+//		}
 		return empBankDetailsRepository.save(empBankDetails);
 	}
 
@@ -61,6 +75,13 @@ public class EmpBankDetailsService {
 		List<BankBranchTransaction> transaction =   bankBranchTransactionRepository.getByEmpBankDetails(idFetched);
 		BankBranchTransaction lastBankBranchTransaction = transaction.get(transaction.size() - 1);
 		return lastBankBranchTransaction;
+	}
+	
+	public List<BankBranchTransaction> getAllBankBranchTransactions(String accountNumber){
+		EmpBankDetails empBankDetails =  empBankDetailsRepository.findByAccountNo(accountNumber);
+		Long idFetched =  empBankDetails.getEmployeeBankDetailsId();
+		List<BankBranchTransaction> transaction =   bankBranchTransactionRepository.getByEmpBankDetails(idFetched);
+		return transaction;
 	}
 
 }

@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name="BankBranchTransaction")
-public class BankBranchTransaction {
+public class BankBranchTransaction implements Comparable<BankBranchTransaction> {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,9 +52,20 @@ public class BankBranchTransaction {
 //}		needs to be checked with banknranchdetails everytime a new object will be created if you do not pass id, DTO required
 //		if passing id it creates an issue again some other id is stored and 2 times data stored
 
+	
 	public BankBranchTransaction() {
 		super();
 	}
+
+	
+
+	@Override
+	public int compareTo(BankBranchTransaction o) {
+		// TODO Auto-generated method stub
+		return o.getTransactionDate().compareTo(transactionDate);
+	}
+
+
 
 	public BankBranchTransaction(Date transactionDate, Integer transactioAmount, String transactionType, float curr_bal,
 			EmpBankDetails empBankDetails) {

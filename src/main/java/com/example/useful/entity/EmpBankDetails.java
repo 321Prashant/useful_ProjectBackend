@@ -30,7 +30,7 @@ public class EmpBankDetails {
 	private boolean salaryAccount;
 	private Date effDate;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "bankBranchId")
 	private BankBranchDetails bankBranchDetails;
 	

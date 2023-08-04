@@ -19,7 +19,7 @@ public class BankDetailsService {
 	public List<BankBranchDetails> findAll() {
 		return bankDetailsRepository.findAll();
 	}
-	public BankBranchDetails findById(String id) {
+	public BankBranchDetails findById(Long id) {
 		return bankDetailsRepository.findById(id).get();
 	}
 

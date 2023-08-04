@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
 import com.example.useful.entity.BankBranchTransaction;
@@ -17,6 +18,9 @@ public interface BankBranchTransactionRepository extends JpaRepository<BankBranc
 	
 	@Query( value = "select * from bank_branch_transaction where emp_bank_details_id =:id order by transaction_date desc", nativeQuery = true)
 	List<BankBranchTransaction> getByEmpBankDetails(Long id);
-	
+
+//	@Query(value= "select ")
+//	ResponseEntity<?> getLastTenTransaction(List<BankBranchTransaction> bankBranchTransaction);
+//	
 }
 //List<type> findBy()
